@@ -94,3 +94,14 @@ final class KeyDecodingTests: XCTestCase {
         XCTAssertEqual(BrightnessKeyTap.decode(data1: data1(key: 2, state: 0x01)).phase, .other)
     }
 }
+
+final class MenuBarIconModeTests: XCTestCase {
+    func testVisibility() {
+        XCTAssertTrue(MenuBarIconMode.always.isVisible(hasExternalDisplay: false, revealed: false))
+        XCTAssertFalse(MenuBarIconMode.externalDisplayOnly.isVisible(hasExternalDisplay: false, revealed: false))
+        XCTAssertTrue(MenuBarIconMode.externalDisplayOnly.isVisible(hasExternalDisplay: true, revealed: false))
+        XCTAssertTrue(MenuBarIconMode.externalDisplayOnly.isVisible(hasExternalDisplay: false, revealed: true))
+        XCTAssertFalse(MenuBarIconMode.hidden.isVisible(hasExternalDisplay: true, revealed: false))
+        XCTAssertTrue(MenuBarIconMode.hidden.isVisible(hasExternalDisplay: true, revealed: true))
+    }
+}

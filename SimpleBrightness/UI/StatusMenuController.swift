@@ -20,6 +20,13 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     private var sliders: [CGDirectDisplayID: MenuSliderView] = [:]
     private var isOpen = false
 
+    /// Shown although the mode hides it, because the user just opened the app
+    /// again; ends when the menu closes, or after `revealDuration` unused.
+    private var isRevealed = false
+    private var revealTimeout: DispatchWorkItem?
+    private static let revealDuration: TimeInterval = 60
+    private var hasExternalDisplay = false
+
     init(displayManager: DisplayManager,
          controller: BrightnessController?,
          keysAuthorized: @escaping () -> Bool,
@@ -37,6 +44,36 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         menu.delegate = self
         menu.autoenablesItems = false
         statusItem.menu = menu
+        hasExternalDisplay = displayManager.displays.contains { !$0.isBuiltin }
+        updateVisibility()
+    }
+
+    // MARK: Visibility
+
+    private func updateVisibility() {
+        statusItem.isVisible = Preferences.menuBarIconMode.isVisible(hasExternalDisplay: hasExternalDisplay,
+                                                                     revealed: isRevealed || isOpen)
+    }
+
+    /// Shows the icon even if the mode hides it: when the user opens the app
+    /// again (`openMenu`: its menu opens too), or launches it by hand. It goes
+    /// away when the menu closes, or after `revealDuration` unused.
+    func reveal(openMenu: Bool) {
+        isRevealed = true
+        updateVisibility()
+        revealTimeout?.cancel()
+        let timeout = DispatchWorkItem { [weak self] in
+            guard let self, !self.isOpen else { return }
+            self.isRevealed = false
+            self.updateVisibility()
+        }
+        revealTimeout = timeout
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.revealDuration, execute: timeout)
+        guard openMenu else { return }
+        // Let the status bar lay the item out before clicking it.
+        DispatchQueue.main.async { [weak self] in
+            self?.statusItem.button?.performClick(nil)
+        }
     }
 
     /// Live update for an open menu.
@@ -47,6 +84,8 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     /// Topology changed (display plugged, unplugged, woken): an open menu is
     /// rebuilt in place so it never shows a display that is gone.
     func displaysDidChange() {
+        hasExternalDisplay = displayManager.displays.contains { !$0.isBuiltin }
+        updateVisibility()
         if isOpen { rebuild() }
     }
 
@@ -61,6 +100,11 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
     func menuDidClose(_ menu: NSMenu) {
         isOpen = false
         sliders.removeAll()
+        if isRevealed {
+            isRevealed = false
+            revealTimeout?.cancel()
+        }
+        updateVisibility()
     }
 
     private func rebuild() {
@@ -109,6 +153,8 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
             menu.addItem(item)
         }
 
+        menu.addItem(iconModeItem())
+
         let login = NSMenuItem(title: String(localized: "Open at Login"),
                                action: #selector(toggleLoginItem), keyEquivalent: "")
         login.target = self
@@ -129,6 +175,35 @@ final class StatusMenuController: NSObject, NSMenuDelegate {
         let quit = NSMenuItem(title: String(localized: "Quit SimpleBrightness"),
                               action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         menu.addItem(quit)
+    }
+
+    private func iconModeItem() -> NSMenuItem {
+        let item = NSMenuItem(title: String(localized: "Menu Bar Icon"), action: nil, keyEquivalent: "")
+        let submenu = NSMenu()
+        let titles: [(MenuBarIconMode, String)] = [
+            (.always, String(localized: "Always Show")),
+            (.externalDisplayOnly, String(localized: "Show Only With an External Display")),
+            (.hidden, String(localized: "Hide")),
+        ]
+        for (mode, title) in titles {
+            let choice = NSMenuItem(title: title, action: #selector(chooseIconMode(_:)), keyEquivalent: "")
+            choice.target = self
+            choice.representedObject = mode.rawValue
+            choice.state = Preferences.menuBarIconMode == mode ? .on : .off
+            submenu.addItem(choice)
+        }
+        submenu.addItem(.separator())
+        let hint = disabledItem(String(localized: "To show a hidden icon, open SimpleBrightness again."))
+        submenu.addItem(hint)
+        item.submenu = submenu
+        return item
+    }
+
+    @objc private func chooseIconMode(_ sender: NSMenuItem) {
+        guard let raw = sender.representedObject as? String, let mode = MenuBarIconMode(rawValue: raw) else { return }
+        Preferences.menuBarIconMode = mode
+        // Applied when the menu closes (it stays visible while open).
+        updateVisibility()
     }
 
     private func disabledItem(_ title: String) -> NSMenuItem {

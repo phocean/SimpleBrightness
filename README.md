@@ -21,8 +21,13 @@ Incréments : 16 crans, comme macOS. L'OSD de luminosité s'affiche sur l'écran
 (ancien style d'OSD, voir *Limitations*).
 
 **Menu** (icône soleil) : un curseur par écran pris en charge, la liste des écrans non
-pris en charge, *Synchroniser la luminosité* (et son écart réglable), *Ouvrir à la
-connexion*, *Quitter*.
+pris en charge, *Synchroniser la luminosité* (et son écart réglable), *Icône dans la
+barre des menus*, *Ouvrir à la connexion*, *Quitter*.
+
+**Icône dans la barre des menus** : *Toujours afficher* (par défaut), *Seulement avec
+un écran externe* (pris en charge ou non), ou *Masquer*. Une icône masquée réapparaît,
+menu ouvert, quand on rouvre SimpleBrightness (Spotlight, Finder) ; elle disparaît de
+nouveau à la fermeture du menu.
 
 ### Synchronisation
 
@@ -51,6 +56,12 @@ connexion*, *Quitter*.
   la luminosité de l'écran interne (mesuré sans l'app) : ce n'est pas SimpleBrightness.
 
 ## Installation
+
+**Depuis une release** (recommandé) : téléchargez le DMG de la
+[dernière version](https://github.com/phocean/SimpleBrightness/releases/latest), glissez
+l'app dans Applications. Elle est signée Developer ID et notarisée par Apple.
+
+**Depuis les sources** :
 
 Prérequis : macOS 14 ou plus récent, Mac Apple Silicon, Xcode 16+ ;
 [XcodeGen](https://github.com/yonaskolb/XcodeGen) seulement pour régénérer le projet.
@@ -86,7 +97,7 @@ touche autre que F1/F2 et n'enregistre aucune touche. Cette limite est tenue par
 code (`Input/BrightnessKeyTap.swift`), pas par le système.
 
 Aucun accès réseau, aucune télémétrie, aucun privilège administrateur ni service
-système. Seuls trois réglages sont conservés (`syncEnabled`, `syncOffset`, `didPromptAccessibility`).
+système. Seuls quatre réglages sont conservés (`syncEnabled`, `syncOffset`, `menuBarIconMode`, `didPromptAccessibility`).
 Les builds Release ne portent pas `get-task-allow` : `make build` refuse sinon, et
 refuse aussi si `codesign` échoue. Les builds Debug et de test sont signés ad hoc sous
 un autre identifiant (`com.jcbaptiste.SimpleBrightness.debug`) : ils ne peuvent jamais
@@ -158,11 +169,13 @@ ServiceManagement, UserDefaults.
 make test
 ```
 
-37 tests unitaires couvrent la logique de synchronisation (échos même tardifs, convergence,
+38 tests unitaires couvrent la logique de synchronisation (échos même tardifs, convergence,
 pas de boucle, suspension, rebranchement sans écriture, échec d'écriture même périmé, écart près des bornes,
 écrans en miroir, stabilisation, `NaN`), l'écrivain (fusion, annulation, échec) et le
 décodage des touches et le calcul des crans. Les tests
 matériels sont suivis dans [`docs/TESTS-MATERIELS.md`](docs/TESTS-MATERIELS.md).
+
+Publier une version : [docs/RELEASE.md](docs/RELEASE.md) (`make publish`).
 
 Journaux : `log stream --predicate 'subsystem == "com.jcbaptiste.SimpleBrightness"' --level debug`
 

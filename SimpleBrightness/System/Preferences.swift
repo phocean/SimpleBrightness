@@ -20,4 +20,11 @@ enum Preferences {
         }
         set { UserDefaults.standard.set(newValue, forKey: offsetKey) }
     }
+
+    private static let iconModeKey = "menuBarIconMode"
+
+    static var menuBarIconMode: MenuBarIconMode {
+        get { UserDefaults.standard.string(forKey: iconModeKey).flatMap(MenuBarIconMode.init(rawValue:)) ?? .always }
+        set { UserDefaults.standard.set(newValue.rawValue, forKey: iconModeKey) }
+    }
 }

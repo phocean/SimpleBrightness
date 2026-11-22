@@ -86,6 +86,36 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         startKeyTap(prompt: firstLaunch)
 
         observeSystem()
+
+        // Hidden icon: launching the app by hand shows it once (not at login).
+        if !Preferences.menuBarIconMode.isVisible(hasExternalDisplay: displayManager.displays.contains { !$0.isBuiltin },
+                                                  revealed: false),
+           !launchedAsLoginItem {
+            statusMenu.reveal(openMenu: false)
+        }
+    }
+
+    private var launchedAsLoginItem = false
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        // The open-application event is only readable here, before launch completes.
+        launchedAsLoginItem = Self.isLoginItemLaunch()
+    }
+
+    /// Opening the app again while it runs (Finder, Spotlight, Dock) shows the
+    /// icon and its menu: the way back to a hidden icon.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        statusMenu?.reveal(openMenu: true)
+        return false
+    }
+
+    /// Launch Services tags a login-item launch on the open-application event.
+    /// If it does not (unverified for SMAppService), the only cost is the icon
+    /// showing for a minute after login, menu closed.
+    private static func isLoginItemLaunch() -> Bool {
+        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
+        return event.eventID == AEEventID(kAEOpenApplication)
+            && event.paramDescriptor(forKeyword: AEKeyword(keyAEPropData))?.enumCodeValue == OSType(keyAELaunchedAsLogInItem)
     }
 
     // MARK: Keys

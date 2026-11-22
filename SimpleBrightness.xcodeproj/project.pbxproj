@@ -22,6 +22,7 @@
 		A6B4E97EC2EF49211F6246F0 /* MenuSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29173BD34F8B14153234CAA /* MenuSliderView.swift */; };
 		CF52675E1484045B32DC7C0C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = FDE2B50CB17AF6E5688997F7 /* Localizable.xcstrings */; };
 		D5A6857E63716B234CE39624 /* TestDoubles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7074E6B513B750CA6C0F5AB5 /* TestDoubles.swift */; };
+		E662B9D02D7939A8B8C0BA32 /* MenuBarIconMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BD3848D512DC55F4B56918 /* MenuBarIconMode.swift */; };
 		EDA57E15F4FB18BF8B1C448A /* BrightnessControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE91991DE5BEDC5E50D56EB0 /* BrightnessControllerTests.swift */; };
 		F0C852D33D6593371648659D /* DisplayServicesBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC6F698864B55473314BC51 /* DisplayServicesBackend.swift */; };
 		F89EA7C31F564B1EAE43A1B5 /* BrightnessBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A4B49E1D213FA301FE8B88 /* BrightnessBackend.swift */; };
@@ -53,6 +54,7 @@
 		B7F4679627C8737AA32AA489 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C0D033598839D9935B784059 /* SimpleBrightness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleBrightness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C29173BD34F8B14153234CAA /* MenuSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSliderView.swift; sourceTree = "<group>"; };
+		C5BD3848D512DC55F4B56918 /* MenuBarIconMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarIconMode.swift; sourceTree = "<group>"; };
 		D7A29351627A3630D5584B13 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		DF88E073FAE3A2D103C108C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2B97195685F62B69A10B673 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		22CC56C2B0AAD7536293E5CA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C5BD3848D512DC55F4B56918 /* MenuBarIconMode.swift */,
 				C29173BD34F8B14153234CAA /* MenuSliderView.swift */,
 				D7A29351627A3630D5584B13 /* StatusMenuController.swift */,
 			);
@@ -262,6 +265,7 @@
 				F0C852D33D6593371648659D /* DisplayServicesBackend.swift in Sources */,
 				2A4E6937E106BED39688BC2D /* Log.swift in Sources */,
 				332CA3B209BF8A76BD5BF158 /* LoginItem.swift in Sources */,
+				E662B9D02D7939A8B8C0BA32 /* MenuBarIconMode.swift in Sources */,
 				A6B4E97EC2EF49211F6246F0 /* MenuSliderView.swift in Sources */,
 				290749E8D341BABA79F418F0 /* Preferences.swift in Sources */,
 				8162CD013DDBE20426D40E90 /* Scheduling.swift in Sources */,

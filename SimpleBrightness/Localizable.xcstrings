@@ -22,6 +22,16 @@
         }
       }
     },
+    "Always Show": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toujours afficher"
+          }
+        }
+      }
+    },
     "Brightness of external displays relative to the built-in display while synchronized.": {
       "localizations": {
         "fr": {
@@ -82,6 +92,26 @@
         }
       }
     },
+    "Hide": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer"
+          }
+        }
+      }
+    },
+    "Menu Bar Icon": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Icône dans la barre des menus"
+          }
+        }
+      }
+    },
     "No displays detected": {
       "localizations": {
         "fr": {
@@ -122,12 +152,32 @@
         }
       }
     },
+    "Show Only With an External Display": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seulement avec un écran externe"
+          }
+        }
+      }
+    },
     "Synchronize Brightness": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Synchroniser la luminosité"
+          }
+        }
+      }
+    },
+    "To show a hidden icon, open SimpleBrightness again.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour retrouver l’icône masquée, rouvrez SimpleBrightness."
           }
         }
       }

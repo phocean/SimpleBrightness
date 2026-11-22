@@ -32,8 +32,8 @@ que l'app fait pour les tenir :
 |---|---|
 | **Autorisation Accessibilité** | Nécessaire pour intercepter F1/F2. Elle est large : macOS ne la limite pas aux touches de luminosité. L'app ne s'en sert que pour un tap abonné aux seuls événements « système » (`NX_SYSDEFINED`, touches multimédia) : elle ne reçoit jamais les frappes ordinaires, rend intacte toute touche autre que F1/F2, et n'enregistre aucune touche (`SimpleBrightness/Input/BrightnessKeyTap.swift`). |
 | **API privées** | `DisplayServices.framework` (luminosité) et `OSD.framework` (OSD), chargés par `dlopen` depuis leur chemin système absolu ; aucun autre code chargé dynamiquement. |
-| **Signature** | Release : Developer ID, runtime renforcé, **aucun** droit (entitlement) ; `make build` refuse un build qui porterait `get-task-allow` ou dont la signature ne se vérifie pas. Debug et tests : signés ad hoc sous un autre identifiant, ils ne peuvent pas hériter de l'autorisation de l'app installée. |
-| **Réseau, données** | Aucun accès réseau, aucune télémétrie, aucune mise à jour automatique. Seules données conservées : trois préférences (`syncEnabled`, `syncOffset`, `didPromptAccessibility`). Les journaux ne contiennent ni noms d'écrans ni position du pointeur. |
+| **Signature** | Release : Developer ID, horodatée, notarisée par Apple, runtime renforcé, **aucun** droit (entitlement) ; `make build` refuse un build qui porterait `get-task-allow` ou dont la signature ne se vérifie pas. Debug et tests : signés ad hoc sous un autre identifiant, ils ne peuvent pas hériter de l'autorisation de l'app installée. |
+| **Réseau, données** | Aucun accès réseau, aucune télémétrie, aucune mise à jour automatique. Seules données conservées : quatre préférences (`syncEnabled`, `syncOffset`, `menuBarIconMode`, `didPromptAccessibility`). Les journaux ne contiennent ni noms d'écrans ni position du pointeur. |
 | **Privilèges** | Aucun droit administrateur, aucun démon ni service système. L'ouverture à la connexion passe par `SMAppService`. |
 | **Désinstallation** | `make uninstall` retire l'ouverture à la connexion, l'app, ses préférences et l'autorisation Accessibilité (`tccutil reset`). |
 
