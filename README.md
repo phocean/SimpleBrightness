@@ -184,9 +184,9 @@ SimpleBrightness/
 Copyright © 2026 Jean-Christophe Baptiste.
 
 SimpleBrightness est un logiciel libre : vous pouvez le redistribuer et le modifier
-selon les termes de la **GNU General Public License version 2**, ou (à votre choix)
+selon les termes de la **GNU General Public License version 3**, ou (à votre choix)
 de toute version ultérieure, telle que publiée par la Free Software Foundation
-(`GPL-2.0-or-later`). Il est distribué sans aucune garantie. Texte complet :
+(`GPL-3.0-or-later`). Il est distribué sans aucune garantie. Texte complet :
 [LICENSE](LICENSE).
 
 Sécurité et signalement de vulnérabilités : [SECURITY.md](SECURITY.md).
