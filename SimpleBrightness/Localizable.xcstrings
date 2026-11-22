@@ -1,0 +1,136 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "%@ — not supported": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — non pris en charge"
+          }
+        }
+      }
+    },
+    "Allow Brightness Keys…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser les touches de luminosité…"
+          }
+        }
+      }
+    },
+    "Brightness of external displays relative to the built-in display while synchronized.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Luminosité des écrans externes par rapport à l’écran intégré pendant la synchronisation."
+          }
+        }
+      }
+    },
+    "Built-in Display": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écran intégré"
+          }
+        }
+      }
+    },
+    "Display %u": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écran %u"
+          }
+        }
+      }
+    },
+    "Displays": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écrans"
+          }
+        }
+      }
+    },
+    "External Displays Offset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écart des écrans externes"
+          }
+        }
+      }
+    },
+    "F1/F2 need the Accessibility permission to control the display under the pointer.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "F1/F2 ont besoin de l’autorisation Accessibilité pour régler l’écran situé sous le pointeur."
+          }
+        }
+      }
+    },
+    "No displays detected": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun écran détecté"
+          }
+        }
+      }
+    },
+    "Open at Login": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir à la connexion"
+          }
+        }
+      }
+    },
+    "Open at Login could not be changed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de modifier l’ouverture à la connexion"
+          }
+        }
+      }
+    },
+    "Quit SimpleBrightness": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitter SimpleBrightness"
+          }
+        }
+      }
+    },
+    "Synchronize Brightness": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchroniser la luminosité"
+          }
+        }
+      }
+    }
+  }
+}

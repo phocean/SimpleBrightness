@@ -1,0 +1,73 @@
+name: SimpleBrightness
+options:
+  bundleIdPrefix: com.jcbaptiste
+  deploymentTarget:
+    macOS: "14.0"
+  developmentLanguage: en
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ARCHS: arm64
+    DEVELOPMENT_TEAM: 26N2RN6N67
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "Developer ID Application"
+    ENABLE_HARDENED_RUNTIME: YES
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+  configs:
+    Debug:
+      # Debug and test builds are signed ad hoc, under another bundle ID: they can
+      # never share the designated requirement of the released app, so they never
+      # inherit its Accessibility permission (they carry get-task-allow).
+      CODE_SIGN_IDENTITY: "-"
+      DEVELOPMENT_TEAM: ""
+      ENABLE_HARDENED_RUNTIME: NO
+targets:
+  SimpleBrightness:
+    type: application
+    platform: macOS
+    sources:
+      - SimpleBrightness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jcbaptiste.SimpleBrightness
+        PRODUCT_NAME: SimpleBrightness
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_CFBundleDisplayName: SimpleBrightness
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        INFOPLIST_KEY_NSHumanReadableCopyright: "© 2026 Jean-Christophe Baptiste — GPL-2.0-or-later"
+        ENABLE_APP_SANDBOX: NO
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.jcbaptiste.SimpleBrightness.debug
+        Release:
+          # Xcode injects com.apple.security.get-task-allow by default, which lets a
+          # debugger attach to a process holding the Accessibility permission (and
+          # blocks notarization). Never in a distributed build.
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
+  SimpleBrightnessTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - SimpleBrightnessTests
+    dependencies:
+      - target: SimpleBrightness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jcbaptiste.SimpleBrightnessTests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/SimpleBrightness.app/Contents/MacOS/SimpleBrightness"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  SimpleBrightness:
+    build:
+      targets:
+        SimpleBrightness: all
+        SimpleBrightnessTests: [test]
+    test:
+      targets:
+        - SimpleBrightnessTests
